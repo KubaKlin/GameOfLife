@@ -2,8 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game of Life</title>
   </head>
   <body>
+    <div id="game-container">
+      <div id="game-board" class="game-board"></div>
+      <div class="description">
+        <p>
+          Use 'qwe,asd,zxc' keys to move the player in 9 directions. Click on
+          empty tiles to add new organisms.
+        </p>
+      </div>
+    </div>
+    <div id="organism-popup" class="popup">
+      <h3>Choose organism to add:</h3>
+      <div id="organism-buttons"></div>
+      <button id="cancel-popup">Cancel</button>
+    </div>
   </body>
 </html>
