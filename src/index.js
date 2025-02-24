@@ -1,8 +1,15 @@
 import './styles.css';
-import { Board } from './board';
-import { Wolf, Sheep, Fox, Antelope, Turtle } from './animals';
-import { Grass, Guarana, PoisonBerry, SowThistle } from './plants';
-import { Player } from './player';
+import { Board } from './Board';
+import { Wolf } from './animals/Wolf';
+import { Sheep } from './animals/Sheep';
+import { Fox } from './animals/Fox';
+import { Antelope } from './animals/Antelope';
+import { Turtle } from './animals/Turtle';
+import { Grass } from './plants/Grass';
+import { Guarana } from './plants/Guarana';
+import { PoisonBerry } from './plants/PoisonBerry';
+import { SowThistle } from './plants/SowThistle';
+import { Player } from './Player';
 import { wait } from './utilities/wait';
 
 class Game {
@@ -60,8 +67,5 @@ class Game {
   }
 }
 
-// Start the game when the page loads
-//window.addEventListener('load', () => {
-  const game = new Game();
-  game.start();
-//});
+const game = new Game();
+game.start();

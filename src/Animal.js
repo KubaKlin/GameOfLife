@@ -1,4 +1,4 @@
-import { Organism } from './organism';
+import { Organism } from './Organism';
 
 export class Animal extends Organism {
   constructor(strength, initiative, positionY, positionX, age = 0) {

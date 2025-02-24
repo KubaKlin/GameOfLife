@@ -1,5 +1,14 @@
-import { Wolf, Sheep, Fox, Antelope, Turtle } from './animals';
-import { Grass, Guarana, PoisonBerry, SowThistle } from './plants';
+import { Wolf } from './animals/Wolf';
+import { Sheep } from './animals/Sheep';
+import { Fox } from './animals/Fox';
+import { Antelope } from './animals/Antelope';
+import { Turtle } from './animals/Turtle';
+import { Grass } from './plants/Grass';
+import { Guarana } from './plants/Guarana';
+import { PoisonBerry } from './plants/PoisonBerry';
+import { SowThistle } from './plants/SowThistle';
+import {wait} from "./utilities/wait";
+
 
 export class Board {
   constructor(width = 20, height = 20) {
@@ -15,8 +24,8 @@ export class Board {
 
   setupBoard() {
     for (let i = 0; i < this.width * this.height; i++) {
-      const positionY = i % this.width; // Obliczenie pozycji positionY
-      const positionX = Math.floor(i / this.width); // Obliczenie pozycji positionX
+      const positionY = i % this.width; // calculate positionY
+      const positionX = Math.floor(i / this.width); // calculate positionX
       const tile = document.createElement('div');
       tile.className = 'tile';
       tile.dataset.positionY = positionY;
@@ -141,11 +150,11 @@ export class Board {
 
   async nextTurn() {
     // Sort organisms by initiative and age
-    this.organisms.sort((a, b) => {
-      if (b.initiative !== a.initiative) {
-        return b.initiative - a.initiative;
+    this.organisms.sort((firstOrganism, secondOrganism) => {
+      if (secondOrganism.initiative !== firstOrganism.initiative) {
+        return secondOrganism.initiative - firstOrganism.initiative;
       }
-      return b.age - a.age;
+      return secondOrganism.age - firstOrganism.age;
     });
 
     // Execute actions for each organism
@@ -155,7 +164,7 @@ export class Board {
         await organism.action(this);
         organism.age++;
         // Add a small delay between organism actions - performance issue
-        //await new Promise((resolve) => setTimeout(resolve, 50));
+        await wait(50);
       }
     }
 
