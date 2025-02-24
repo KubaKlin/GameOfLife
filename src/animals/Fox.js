@@ -1,4 +1,5 @@
 import { Animal } from '../Animal';
+import { getRandom } from '../utilities/getRandom';
 
 export class Fox extends Animal {
   constructor(positionY, positionX, age = 0) {
@@ -28,7 +29,7 @@ export class Fox extends Animal {
 
     if (safeDirections.length > 0) {
       const randomDirection =
-          safeDirections[Math.floor(Math.random() * safeDirections.length)];
+          safeDirections[getRandom(safeDirections.length)];
       const newX = this.positionY + randomDirection.positionY;
       const newY = this.positionX + randomDirection.positionX;
 

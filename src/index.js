@@ -11,6 +11,7 @@ import { PoisonBerry } from './plants/PoisonBerry';
 import { SowThistle } from './plants/SowThistle';
 import { Player } from './Player';
 import { wait } from './utilities/wait';
+import { getRandom } from './utilities/getRandom';
 
 class Game {
   constructor() {
@@ -21,8 +22,8 @@ class Game {
 
   setupInitialState() {
     // Add player at random position
-    const playerPositionX = Math.floor(Math.random() * this.board.width);
-    const playerPositionY = Math.floor(Math.random() * this.board.height);
+    const playerPositionX = getRandom(this.board.width);
+    const playerPositionY = getRandom(this.board.height);
     this.board.addOrganism(new Player(playerPositionX, playerPositionY));
 
     const organismTypes = [
@@ -40,11 +41,11 @@ class Game {
     // Add 20 random organisms
     for (let i = 0; i < 20; i++) {
       const organismType =
-        organismTypes[Math.floor(Math.random() * organismTypes.length)];
+        organismTypes[getRandom(organismTypes.length)];
       let organismPositionY, organismPositionX, isSpaceOccupied;
       do {
-        organismPositionX = Math.floor(Math.random() * this.board.width);
-        organismPositionY = Math.floor(Math.random() * this.board.height);
+        organismPositionX = getRandom(this.board.width);
+        organismPositionY = getRandom(this.board.height);
         isSpaceOccupied = this.board.getOrganism(
           organismPositionX,
           organismPositionY,

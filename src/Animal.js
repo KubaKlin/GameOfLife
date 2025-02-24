@@ -1,4 +1,5 @@
 import { Organism } from './Organism';
+import { getRandom } from './utilities/getRandom';
 
 export class Animal extends Organism {
   constructor(strength, initiative, positionY, positionX, age = 0) {
@@ -26,7 +27,7 @@ export class Animal extends Organism {
     if (availableDirections.length > 0) {
       const randomDirection =
         availableDirections[
-          Math.floor(Math.random() * availableDirections.length)
+          getRandom(availableDirections.length)
         ];
       const newX = this.positionY + randomDirection.positionY;
       const newY = this.positionX + randomDirection.positionX;
@@ -60,7 +61,7 @@ export class Animal extends Organism {
     );
     if (emptyNeighbors.length > 0) {
       const position =
-        emptyNeighbors[Math.floor(Math.random() * emptyNeighbors.length)];
+        emptyNeighbors[getRandom(emptyNeighbors.length)];
       const baby = new this.constructor(
         this.strength,
         this.initiative,

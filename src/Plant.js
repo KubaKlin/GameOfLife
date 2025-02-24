@@ -1,4 +1,5 @@
 import { Organism } from './Organism';
+import { getRandom } from './utilities/getRandom';
 
 export class Plant extends Organism {
   constructor(strength, positionY, positionX, age = 0) {
@@ -19,7 +20,7 @@ export class Plant extends Organism {
     );
     if (emptyNeighbors.length > 0) {
       const position =
-        emptyNeighbors[Math.floor(Math.random() * emptyNeighbors.length)];
+        emptyNeighbors[getRandom(emptyNeighbors.length)];
       const newPlant = new this.constructor(
         this.strength,
         position.positionY,

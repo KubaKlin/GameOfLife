@@ -1,4 +1,5 @@
 import { Animal } from '../Animal';
+import { getRandom } from '../utilities/getRandom';
 
 export class Antelope extends Animal {
   constructor(positionY, positionX, age = 0) {
@@ -24,7 +25,7 @@ export class Antelope extends Animal {
     if (availableDirections.length > 0) {
       const randomDirection =
           availableDirections[
-              Math.floor(Math.random() * availableDirections.length)
+              getRandom(availableDirections.length)
               ];
       const newX = this.positionY + randomDirection.positionY;
       const newY = this.positionX + randomDirection.positionX;
@@ -43,7 +44,7 @@ export class Antelope extends Animal {
           );
           if (escapeSpots.length > 0) {
             const escape =
-                escapeSpots[Math.floor(Math.random() * escapeSpots.length)];
+                escapeSpots[getRandom(escapeSpots.length)];
             board.moveOrganism(this, escape.positionY, escape.positionX);
             return;
           }
