@@ -1,4 +1,4 @@
-import { Animal } from '../Animal';
+import { Animal } from '../organisms/Animal';
 
 export class Turtle extends Animal {
   constructor(positionY, positionX, age = 0) {

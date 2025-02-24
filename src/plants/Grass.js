@@ -1,4 +1,4 @@
-import { Plant } from '../Plant';
+import { Plant } from '../organisms/Plant';
 
 export class Grass extends Plant {
   constructor(positionY, positionX, age = 0) {

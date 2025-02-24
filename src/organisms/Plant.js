@@ -1,5 +1,5 @@
-import { Organism } from './Organism';
-import { getRandom } from './utilities/getRandom';
+import { Organism } from '../Organism';
+import { getRandom } from '../utilities/getRandom';
 
 export class Plant extends Organism {
   constructor(strength, positionY, positionX, age = 0) {

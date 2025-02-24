@@ -1,4 +1,4 @@
-import { Animal } from '../Animal';
+import { Animal } from '../organisms/Animal';
 import { getRandom } from '../utilities/getRandom';
 
 export class Fox extends Animal {

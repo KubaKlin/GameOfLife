@@ -9,7 +9,7 @@ import { Grass } from './plants/Grass';
 import { Guarana } from './plants/Guarana';
 import { PoisonBerry } from './plants/PoisonBerry';
 import { SowThistle } from './plants/SowThistle';
-import { Player } from './Player';
+import { Player } from './organisms/Player';
 import { wait } from './utilities/wait';
 import { getRandom } from './utilities/getRandom';
 
