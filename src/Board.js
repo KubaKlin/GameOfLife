@@ -8,6 +8,7 @@ import { Guarana } from './plants/Guarana';
 import { PoisonBerry } from './plants/PoisonBerry';
 import { SowThistle } from './plants/SowThistle';
 import {wait} from "./utilities/wait";
+import {OrganismPopup} from "./OrganismPopup";
 
 
 export class Board {
@@ -19,6 +20,7 @@ export class Board {
       .fill()
       .map(() => Array(width).fill(null));
     this.gameElement = document.getElementById('game-board');
+    this.organismPopup = new OrganismPopup(this);
     this.setupBoard();
   }
 
@@ -39,7 +41,7 @@ export class Board {
 
   handleTileClick(positionY, positionX) {
     if (!this.getOrganism(positionY, positionX)) {
-      this.showOrganismPopup(positionY, positionX);
+      this.organismPopup.showPopup(positionY, positionX);
     }
   }
 
