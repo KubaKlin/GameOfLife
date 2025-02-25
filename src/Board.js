@@ -45,45 +45,6 @@ export class Board {
     }
   }
 
-  showOrganismPopup(positionY, positionX) {
-    const popup = document.getElementById('organism-popup');
-    const buttonsContainer = document.getElementById('organism-buttons');
-    // Clear previous buttons
-    while (buttonsContainer.firstChild) {
-      buttonsContainer.removeChild(buttonsContainer.firstChild);
-    }
-
-    // Add buttons for each organism type
-    const organisms = [
-      'Wolf',
-      'Sheep',
-      'Fox',
-      'Antelope',
-      'Turtle',
-      'Grass',
-      'Guarana',
-      'PoisonBerry',
-      'SowThistle',
-    ];
-
-    organisms.forEach((organism) => {
-      const button = document.createElement('button');
-      button.textContent = organism;
-      button.addEventListener('click', () => {
-        this.createOrganism(organism, positionY, positionX);
-        popup.classList.remove('active');
-      });
-      buttonsContainer.appendChild(button);
-    });
-
-    popup.classList.add('active');
-
-    // Handle cancel button
-    document.getElementById('cancel-popup').onclick = () => {
-      popup.classList.remove('active');
-    };
-  }
-
   addOrganism(organism) {
     this.organisms.push(organism);
     this.tiles[organism.positionX][organism.positionY] = organism;
