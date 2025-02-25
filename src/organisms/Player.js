@@ -1,4 +1,5 @@
 import { Animal } from './Animal';
+import {getDirection} from "../utilities/getDirection";
 
 export class Player extends Animal {
   constructor(positionY, positionX, age = 0) {
@@ -8,50 +9,16 @@ export class Player extends Animal {
   action(board) {
     return new Promise((resolve) => {
       const handleKeyPress = (event) => {
-        let directionX = 0;
-        let directionY = 0;
+        const direction = getDirection(event.key);
 
-        switch (event.key) {
-          case 'w':
-            directionY = -1;
-            break;
-          case 'x':
-            directionY = 1;
-            break;
-          case 'a':
-            directionX = -1;
-            break;
-          case 'd':
-            directionX = 1;
-            break;
-          case 'q':
-            directionX = -1;
-            directionY = -1;
-            break;
-          case 'e':
-            directionX = 1;
-            directionY = -1;
-            break;
-          case 'z':
-            directionX = -1;
-            directionY = 1;
-            break;
-          case 'c':
-            directionX = 1;
-            directionY = 1;
-            break;
-          case ' ':
-          case 's':
-            // Stay in place
-            document.removeEventListener('keydown', handleKeyPress);
-            resolve();
-            return;
-          default:
-            return;
+        if (direction === null) {
+          document.removeEventListener('keydown', handleKeyPress);
+          resolve();
+          return;
         }
 
-        const newX = this.positionY + directionX;
-        const newY = this.positionX + directionY;
+        const newX = this.positionY + direction.directionX;
+        const newY = this.positionX + direction.directionY;
 
         if (board.isValidPosition(newX, newY)) {
           const targetOrganism = board.getOrganism(newX, newY);

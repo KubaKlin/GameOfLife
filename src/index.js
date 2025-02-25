@@ -40,8 +40,7 @@ class Game {
 
     // Add 20 random organisms
     for (let i = 0; i < 20; i++) {
-      const organismType =
-        organismTypes[getRandom(organismTypes.length)];
+      const organismType = organismTypes[getRandom(organismTypes.length)];
       let organismPositionY, organismPositionX, isSpaceOccupied;
       do {
         organismPositionX = getRandom(this.board.width);
