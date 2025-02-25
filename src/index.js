@@ -47,8 +47,8 @@ class Game {
         organismPositionX = getRandom(this.board.width);
         organismPositionY = getRandom(this.board.height);
         isSpaceOccupied = this.board.getOrganism(
-            organismPositionX,
-            organismPositionY
+          organismPositionX,
+          organismPositionY,
         );
 
         if (!isSpaceOccupied) {

@@ -24,9 +24,7 @@ export class Antelope extends Animal {
 
     if (availableDirections.length > 0) {
       const randomDirection =
-          availableDirections[
-              getRandom(availableDirections.length)
-              ];
+        availableDirections[getRandom(availableDirections.length)];
       const newX = this.positionY + randomDirection.positionY;
       const newY = this.positionX + randomDirection.positionX;
 
@@ -39,12 +37,11 @@ export class Antelope extends Animal {
         // 50% chance to flee from fight
         if (Math.random() < 0.5) {
           const escapeSpots = board.getEmptyNeighbors(
-              this.positionY,
-              this.positionX,
+            this.positionY,
+            this.positionX,
           );
           if (escapeSpots.length > 0) {
-            const escape =
-                escapeSpots[getRandom(escapeSpots.length)];
+            const escape = escapeSpots[getRandom(escapeSpots.length)];
             board.moveOrganism(this, escape.positionY, escape.positionX);
             return;
           }

@@ -1,5 +1,5 @@
 import { Animal } from './Animal';
-import {getDirection} from "../utilities/getDirection";
+import { getDirection } from '../utilities/getDirection';
 
 export class Player extends Animal {
   constructor(positionY, positionX, age = 0) {
