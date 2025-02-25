@@ -7,9 +7,9 @@ import { Grass } from './plants/Grass';
 import { Guarana } from './plants/Guarana';
 import { PoisonBerry } from './plants/PoisonBerry';
 import { SowThistle } from './plants/SowThistle';
-import {wait} from "./utilities/wait";
-import {OrganismPopup} from "./OrganismPopup";
-
+import { wait } from "./utilities/wait";
+import { OrganismPopup } from "./OrganismPopup";
+import { Tile } from "./Tile";
 
 export class Board {
   constructor(width = 20, height = 20) {
@@ -18,71 +18,45 @@ export class Board {
     this.organisms = [];
     this.tiles = Array(height)
       .fill()
-      .map(() => Array(width).fill(null));
+      .map((_, x) => Array(width)
+        .fill()
+        .map((_, y) => new Tile(y, x, this)));
     this.gameElement = document.getElementById('game-board');
     this.organismPopup = new OrganismPopup(this);
     this.setupBoard();
   }
 
   setupBoard() {
-    for (let i = 0; i < this.width * this.height; i++) {
-      const positionY = i % this.width; // calculate positionY
-      const positionX = Math.floor(i / this.width); // calculate positionX
-      const tile = document.createElement('div');
-      tile.className = 'tile';
-      tile.dataset.positionY = positionY;
-      tile.dataset.positionX = positionX;
-      tile.addEventListener('click', () =>
-        this.handleTileClick(positionY, positionX),
-      );
-      this.gameElement.appendChild(tile);
-    }
-  }
-
-  handleTileClick(positionY, positionX) {
-    if (!this.getOrganism(positionY, positionX)) {
-      this.organismPopup.showPopup(positionY, positionX);
+    for (let x = 0; x < this.height; x++) {
+      for (let y = 0; y < this.width; y++) {
+        this.gameElement.appendChild(this.tiles[x][y].element);
+      }
     }
   }
 
   addOrganism(organism) {
-    this.organisms.push(organism);
-    this.tiles[organism.positionX][organism.positionY] = organism;
-    this.updateTile(organism.positionY, organism.positionX);
+    if (this.isValidPosition(organism.positionY, organism.positionX)) {
+      this.organisms.push(organism);
+      this.tiles[organism.positionX][organism.positionY].setOrganism(organism);
+    }
   }
 
   removeOrganism(organism) {
     const index = this.organisms.indexOf(organism);
     if (index > -1) {
       this.organisms.splice(index, 1);
-      this.tiles[organism.positionX][organism.positionY] = null;
-      this.updateTile(organism.positionY, organism.positionX);
+      this.tiles[organism.positionX][organism.positionY].removeOrganism();
     }
   }
 
   moveOrganism(organism, newX, newY) {
-    this.tiles[organism.positionX][organism.positionY] = null;
-    this.updateTile(organism.positionY, organism.positionX);
-
+    this.tiles[organism.positionX][organism.positionY].removeOrganism();
     organism.setPosition(newX, newY);
-    this.tiles[newY][newX] = organism;
-    this.updateTile(newX, newY);
+    this.tiles[newY][newX].setOrganism(organism);
   }
 
   getOrganism(positionY, positionX) {
-    return this.tiles[positionX][positionY];
-  }
-
-  updateTile(positionY, positionX) {
-    const tile = this.gameElement.children[positionX * this.width + positionY];
-    const organism = this.tiles[positionX][positionY];
-
-    while (tile?.firstChild) {
-      tile.removeChild(tile.firstChild);
-    }
-    if (organism && organism.getIcon() && tile) {
-      tile.textContent = organism.getIcon();
-    }
+    return this.tiles[positionX][positionY].getOrganism();
   }
 
   isValidPosition(positionY, positionX) {
@@ -103,8 +77,8 @@ export class Board {
         const newX = positionY + directionX;
         const newY = positionX + directionY;
 
-        if (this.isValidPosition(newX, newY) && !this.getOrganism(newX, newY)) {
-          neighbors.push({ positionY: newX, positionX: newY });
+        if (this.isValidPosition(newY, newX) && !this.getOrganism(newY, newX)) {
+          neighbors.push({ positionY: newY, positionX: newX });
         }
       }
     }
@@ -112,7 +86,6 @@ export class Board {
   }
 
   async nextTurn() {
-    // Sort organisms by initiative and age
     this.organisms.sort((firstOrganism, secondOrganism) => {
       if (secondOrganism.initiative !== firstOrganism.initiative) {
         return secondOrganism.initiative - firstOrganism.initiative;
@@ -120,32 +93,25 @@ export class Board {
       return secondOrganism.age - firstOrganism.age;
     });
 
-    // Execute actions for each organism
     for (const organism of [...this.organisms]) {
       if (organism.alive) {
-        // Wait for the action to complete (important for Player actions)
         await organism.action(this);
         organism.age++;
-        // Add a small delay between organism actions - performance issue
         await wait(50);
       }
     }
 
-    // Remove dead organisms
     this.organisms = this.organisms.filter((org) => org.alive);
   }
 
   createOrganism(organismType, positionY, positionX) {
+    if (!this.isValidPosition(positionY, positionX)) {
+      console.error(`Invalid position for new ${organismType}: (${positionY}, ${positionX})`);
+      return;
+    }
     const organismClasses = {
-      Wolf: Wolf,
-      Sheep: Sheep,
-      Fox: Fox,
-      Antelope: Antelope,
-      Turtle: Turtle,
-      Grass: Grass,
-      Guarana: Guarana,
-      PoisonBerry: PoisonBerry,
-      SowThistle: SowThistle,
+      Wolf, Sheep, Fox, Antelope, Turtle,
+      Grass, Guarana, PoisonBerry, SowThistle
     };
 
     const OrganismClass = organismClasses[organismType];

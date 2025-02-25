@@ -47,8 +47,8 @@ class Game {
         organismPositionX = getRandom(this.board.width);
         organismPositionY = getRandom(this.board.height);
         isSpaceOccupied = this.board.getOrganism(
-          organismPositionX,
           organismPositionY,
+          organismPositionX,
         );
 
         if (!isSpaceOccupied) {
@@ -67,7 +67,7 @@ class Game {
     while (this.isRunning) {
       await this.board.nextTurn();
       // Add a delay between turns - performance issue
-      await wait(200);
+      await wait(100);
     }
   }
 }
