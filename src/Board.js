@@ -7,9 +7,9 @@ import { Grass } from './plants/Grass';
 import { Guarana } from './plants/Guarana';
 import { PoisonBerry } from './plants/PoisonBerry';
 import { SowThistle } from './plants/SowThistle';
-import { wait } from "./utilities/wait";
-import { OrganismPopup } from "./OrganismPopup";
-import { Tile } from "./Tile";
+import { wait } from './utilities/wait';
+import { OrganismPopup } from './OrganismPopup';
+import { Tile } from './Tile';
 
 export class Board {
   constructor(width = 20, height = 20) {
@@ -18,9 +18,11 @@ export class Board {
     this.organisms = [];
     this.tiles = Array(height)
       .fill()
-      .map((_, x) => Array(width)
-        .fill()
-        .map((_, y) => new Tile(y, x, this)));
+      .map((_, x) =>
+        Array(width)
+          .fill()
+          .map((_, y) => new Tile(y, x, this)),
+      );
     this.gameElement = document.getElementById('game-board');
     this.organismPopup = new OrganismPopup(this);
     this.setupBoard();
@@ -106,12 +108,21 @@ export class Board {
 
   createOrganism(organismType, positionY, positionX) {
     if (!this.isValidPosition(positionY, positionX)) {
-      console.error(`Invalid position for new ${organismType}: (${positionY}, ${positionX})`);
+      console.error(
+        `Invalid position for new ${organismType}: (${positionY}, ${positionX})`,
+      );
       return;
     }
     const organismClasses = {
-      Wolf, Sheep, Fox, Antelope, Turtle,
-      Grass, Guarana, PoisonBerry, SowThistle
+      Wolf,
+      Sheep,
+      Fox,
+      Antelope,
+      Turtle,
+      Grass,
+      Guarana,
+      PoisonBerry,
+      SowThistle,
     };
 
     const OrganismClass = organismClasses[organismType];
