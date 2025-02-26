@@ -42,6 +42,9 @@ export class Animal extends Organism {
   }
 
   fight(board, opponent) {
+    if (opponent.constructor.name === 'Guarana') {
+      this.strength += 3;
+    }
     if (this.strength >= opponent.strength) {
       opponent.die();
       board.removeOrganism(opponent);
