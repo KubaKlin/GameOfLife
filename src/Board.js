@@ -72,21 +72,26 @@ export class Board {
 
   getEmptyNeighbors(positionY, positionX) {
     const directions = [
-      { y: -1, x: -1 }, { y: -1, x: 0 }, { y: -1, x: 1 },
-      { y:  0, x: -1 },                 { y:  0, x: 1 },
-      { y:  1, x: -1 }, { y:  1, x: 0 }, { y:  1, x: 1 },
+      { y: -1, x: -1 },
+      { y: -1, x: 0 },
+      { y: -1, x: 1 },
+      { y: 0, x: -1 },
+      { y: 0, x: 1 },
+      { y: 1, x: -1 },
+      { y: 1, x: 0 },
+      { y: 1, x: 1 },
     ];
 
     const neighbors = directions
-        .map((direction) => {
-          const newY = positionY + direction.y;
-          const newX = positionX + direction.x;
-          if (this.isValidPosition(newY, newX) && !this.getOrganism(newY, newX)) {
-            return { positionY: newY, positionX: newX };
-          }
-          return null;
-        })
-        .filter((neighbor) => neighbor !== null);
+      .map((direction) => {
+        const newY = positionY + direction.y;
+        const newX = positionX + direction.x;
+        if (this.isValidPosition(newY, newX) && !this.getOrganism(newY, newX)) {
+          return { positionY: newY, positionX: newX };
+        }
+        return null;
+      })
+      .filter((neighbor) => neighbor !== null);
 
     return neighbors;
   }
