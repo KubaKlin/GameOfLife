@@ -17,13 +17,13 @@ export class Player extends Animal {
           return;
         }
 
-        const newX = this.positionY + direction.directionX;
-        const newY = this.positionX + direction.directionY;
+        const newY = this.positionY + direction.directionY;
+        const newX = this.positionX + direction.directionX;
 
-        if (board.isValidPosition(newX, newY)) {
-          const targetOrganism = board.getOrganism(newX, newY);
+        if (board.isValidPosition(newY, newX)) {
+          const targetOrganism = board.getOrganism(newY, newX);
           if (!targetOrganism) {
-            board.moveOrganism(this, newX, newY);
+            board.moveOrganism(this, newY, newX);
           } else {
             this.fight(board, targetOrganism);
           }

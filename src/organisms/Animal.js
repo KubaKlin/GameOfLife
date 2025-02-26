@@ -19,20 +19,20 @@ export class Animal extends Organism {
     ];
 
     const availableDirections = directions.filter((direction) => {
-      const newX = this.positionY + direction.positionY;
-      const newY = this.positionX + direction.positionX;
-      return board.isValidPosition(newX, newY);
+      const newY = this.positionY + direction.positionY;
+      const newX = this.positionX + direction.positionX;
+      return board.isValidPosition(newY, newX);
     });
 
     if (availableDirections.length > 0) {
       const randomDirection =
         availableDirections[getRandom(availableDirections.length)];
-      const newX = this.positionY + randomDirection.positionY;
-      const newY = this.positionX + randomDirection.positionX;
+      const newY = this.positionY + randomDirection.positionY;
+      const newX = this.positionX + randomDirection.positionX;
 
-      const targetOrganism = board.getOrganism(newX, newY);
+      const targetOrganism = board.getOrganism(newY, newX);
       if (!targetOrganism) {
-        board.moveOrganism(this, newX, newY);
+        board.moveOrganism(this, newY, newX);
       } else if (targetOrganism.constructor.name === this.constructor.name) {
         this.mate(board, targetOrganism);
       } else {

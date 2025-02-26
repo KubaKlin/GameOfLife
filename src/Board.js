@@ -18,10 +18,10 @@ export class Board {
     this.organisms = [];
     this.tiles = Array(height)
       .fill()
-      .map((_, x) =>
+      .map((_, y) =>
         Array(width)
           .fill()
-          .map((_, y) => new Tile(y, x, this)),
+          .map((_, x) => new Tile(y, x, this)),
       );
     this.gameElement = document.getElementById('game-board');
     this.organismPopup = new OrganismPopup(this);
@@ -29,9 +29,9 @@ export class Board {
   }
 
   setupBoard() {
-    for (let x = 0; x < this.height; x++) {
-      for (let y = 0; y < this.width; y++) {
-        this.gameElement.appendChild(this.tiles[x][y].element);
+    for (let y = 0; y < this.height; y++) {
+      for (let x = 0; x < this.width; x++) {
+        this.gameElement.appendChild(this.tiles[y][x].element);
       }
     }
   }
@@ -39,7 +39,7 @@ export class Board {
   addOrganism(organism) {
     if (this.isValidPosition(organism.positionY, organism.positionX)) {
       this.organisms.push(organism);
-      this.tiles[organism.positionX][organism.positionY].setOrganism(organism);
+      this.tiles[organism.positionY][organism.positionX].setOrganism(organism);
     }
   }
 
@@ -47,26 +47,26 @@ export class Board {
     const index = this.organisms.indexOf(organism);
     if (index > -1) {
       this.organisms.splice(index, 1);
-      this.tiles[organism.positionX][organism.positionY].removeOrganism();
+      this.tiles[organism.positionY][organism.positionX].removeOrganism();
     }
   }
 
-  moveOrganism(organism, newX, newY) {
-    this.tiles[organism.positionX][organism.positionY].removeOrganism();
-    organism.setPosition(newX, newY);
+  moveOrganism(organism, newY, newX) {
+    this.tiles[organism.positionY][organism.positionX].removeOrganism();
+    organism.setPosition(newY, newX);
     this.tiles[newY][newX].setOrganism(organism);
   }
 
   getOrganism(positionY, positionX) {
-    return this.tiles[positionX][positionY].getOrganism();
+    return this.tiles[positionY][positionX].getOrganism();
   }
 
   isValidPosition(positionY, positionX) {
     return (
       positionY >= 0 &&
-      positionY < this.width &&
+      positionY < this.height &&
       positionX >= 0 &&
-      positionX < this.height
+      positionX < this.width
     );
   }
 
@@ -76,8 +76,8 @@ export class Board {
       for (let directionX = -1; directionX <= 1; directionX++) {
         if (directionX === 0 && directionY === 0) continue;
 
-        const newX = positionY + directionX;
-        const newY = positionX + directionY;
+        const newY = positionY + directionY;
+        const newX = positionX + directionX;
 
         if (this.isValidPosition(newY, newX) && !this.getOrganism(newY, newX)) {
           neighbors.push({ positionY: newY, positionX: newX });
