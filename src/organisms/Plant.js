@@ -8,6 +8,10 @@ export class Plant extends Organism {
     this.spreadChance = 0.1; // 10% chance to spread by default
   }
 
+  onEaten(predator, board) {
+    // Default behavior - do nothing when eaten
+  }
+
   async action(board) {
     if (tryWithChance(this.spreadChance)) {
       this.spread(board);

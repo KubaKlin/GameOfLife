@@ -5,8 +5,8 @@ export class Guarana extends Plant {
     super(0, positionY, positionX, age);
   }
 
-  onEaten(animal) {
-    animal.strength += 3;
+  onEaten(predator, board) {
+    predator.strength += 3;
   }
 
   getIcon() {

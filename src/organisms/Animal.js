@@ -42,10 +42,10 @@ export class Animal extends Organism {
   }
 
   fight(board, opponent) {
-    if (opponent.constructor.name === 'Guarana') {
-      this.strength += 3;
-    }
     if (this.strength >= opponent.strength) {
+      if (opponent.onEaten) {
+        opponent.onEaten(this, board);
+      }
       opponent.die();
       board.removeOrganism(opponent);
       board.moveOrganism(this, opponent.positionY, opponent.positionX);
@@ -70,5 +70,9 @@ export class Animal extends Organism {
       );
       board.addOrganism(baby);
     }
+  }
+
+  onEaten(board, predator) {
+    // Default behavior - do nothing when eaten
   }
 }

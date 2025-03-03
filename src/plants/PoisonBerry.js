@@ -2,7 +2,12 @@ import { Plant } from '../organisms/Plant';
 
 export class PoisonBerry extends Plant {
   constructor(positionY, positionX, age = 0) {
-    super(99, positionY, positionX, age); // High strength to ensure it kills the animal
+    super(0, positionY, positionX, age); // Strength doesn't matter since it kills instantly
+  }
+
+  onEaten(predator, board) {
+    predator.die();
+    board.removeOrganism(predator);
   }
 
   getIcon() {
