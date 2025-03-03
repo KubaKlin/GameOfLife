@@ -9,20 +9,15 @@ import { PoisonBerry } from './plants/PoisonBerry';
 import { SowThistle } from './plants/SowThistle';
 import { wait } from './utilities/wait';
 import { OrganismPopup } from './OrganismPopup';
-import { Tile } from './Tile';
+import { createTiles } from './utilities/createTiles';
+
 
 export class Board {
   constructor(width = 20, height = 20) {
     this.width = width;
     this.height = height;
     this.organisms = [];
-    this.tiles = Array(height)
-      .fill()
-      .map((_, y) =>
-        Array(width)
-          .fill()
-          .map((_, x) => new Tile(y, x, this)),
-      );
+    this.tiles = createTiles(this.width, this.height, this);
     this.gameElement = document.getElementById('game-board');
     this.organismPopup = new OrganismPopup(this);
     this.setupBoard();
