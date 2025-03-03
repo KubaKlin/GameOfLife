@@ -1,5 +1,6 @@
 import { Animal } from '../organisms/Animal';
-import { getRandom } from '../utilities/getRandom';
+import { getRandomFromRange } from '../utilities/getRandomFromRange';
+import { tryWithChance } from '../utilities/tryWithChance';
 
 export class Antelope extends Animal {
   constructor(positionY, positionX, age = 0) {
@@ -11,8 +12,9 @@ export class Antelope extends Animal {
     const directions = [];
     for (let directionY = -2; directionY <= 2; directionY++) {
       for (let directionX = -2; directionX <= 2; directionX++) {
-        if (directionX === 0 && directionY === 0) continue;
-        directions.push({ positionY: directionY, positionX: directionX });
+        if (!(directionX === 0 && directionY === 0)) {
+          directions.push({ positionY: directionY, positionX: directionX });
+        }
       }
     }
 
@@ -22,9 +24,9 @@ export class Antelope extends Animal {
       return board.isValidPosition(newY, newX);
     });
 
-    if (availableDirections.length > 0) {
+    if (!availableDirections.length) {
       const randomDirection =
-        availableDirections[getRandom(availableDirections.length)];
+        availableDirections[getRandomFromRange(availableDirections.length)];
       const newY = this.positionY + randomDirection.positionY;
       const newX = this.positionX + randomDirection.positionX;
 
@@ -35,13 +37,13 @@ export class Antelope extends Animal {
         this.mate(board, targetOrganism);
       } else {
         // 50% chance to flee from fight
-        if (Math.random() < 0.5) {
+        if (tryWithChance(0.5)) {
           const escapeSpots = board.getEmptyNeighbors(
             this.positionY,
             this.positionX,
           );
           if (escapeSpots.length > 0) {
-            const escape = escapeSpots[getRandom(escapeSpots.length)];
+            const escape = escapeSpots[getRandomFromRange(escapeSpots.length)];
             board.moveOrganism(this, escape.positionY, escape.positionX);
             return;
           }

@@ -33,12 +33,11 @@ export class Tile {
   }
 
   updateDisplay() {
+    // remove organism from board after moving to another tile
     while (this.element.firstChild) {
       this.element.removeChild(this.element.firstChild);
     }
-    if (this.organism && this.organism.getIcon()) {
-      this.element.textContent = this.organism.getIcon();
-    }
+    this.element.textContent = this.organism?.getIcon();
   }
 
   getOrganism() {

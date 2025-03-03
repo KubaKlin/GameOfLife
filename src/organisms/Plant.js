@@ -1,5 +1,6 @@
 import { Organism } from '../Organism';
-import { getRandom } from '../utilities/getRandom';
+import { getRandomFromRange } from '../utilities/getRandomFromRange';
+import { tryWithChance } from '../utilities/tryWithChance';
 
 export class Plant extends Organism {
   constructor(strength, positionY, positionX, age = 0) {
@@ -8,7 +9,7 @@ export class Plant extends Organism {
   }
 
   async action(board) {
-    if (Math.random() < this.spreadChance) {
+    if (tryWithChance(this.spreadChance)) {
       this.spread(board);
     }
   }
@@ -19,7 +20,7 @@ export class Plant extends Organism {
       this.positionX,
     );
     if (emptyNeighbors.length > 0) {
-      const position = emptyNeighbors[getRandom(emptyNeighbors.length)];
+      const position = emptyNeighbors[getRandomFromRange(emptyNeighbors.length)];
       const newPlant = new this.constructor(
         position.positionY,
         position.positionX,

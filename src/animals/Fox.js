@@ -1,5 +1,5 @@
 import { Animal } from '../organisms/Animal';
-import { getRandom } from '../utilities/getRandom';
+import { getRandomFromRange } from '../utilities/getRandomFromRange';
 
 export class Fox extends Animal {
   constructor(positionY, positionX, age = 0) {
@@ -27,19 +27,21 @@ export class Fox extends Animal {
       return !organism || organism.strength <= this.strength;
     });
 
-    if (safeDirections.length > 0) {
-      const randomDirection = safeDirections[getRandom(safeDirections.length)];
-      const newX = this.positionY + randomDirection.positionY;
-      const newY = this.positionX + randomDirection.positionX;
+    if (!safeDirections.length) {
+      return;
+    }
 
-      const targetOrganism = board.getOrganism(newX, newY);
-      if (!targetOrganism) {
-        board.moveOrganism(this, newX, newY);
-      } else if (targetOrganism.constructor.name === this.constructor.name) {
-        this.mate(board, targetOrganism);
-      } else {
-        this.fight(board, targetOrganism);
-      }
+    const randomDirection = safeDirections[getRandomFromRange(safeDirections.length)];
+    const newX = this.positionY + randomDirection.positionY;
+    const newY = this.positionX + randomDirection.positionX;
+
+    const targetOrganism = board.getOrganism(newX, newY);
+    if (!targetOrganism) {
+      board.moveOrganism(this, newX, newY);
+    } else if (targetOrganism.constructor.name === this.constructor.name) {
+      this.mate(board, targetOrganism);
+    } else {
+      this.fight(board, targetOrganism);
     }
   }
 

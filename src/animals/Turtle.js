@@ -1,4 +1,5 @@
 import { Animal } from '../organisms/Animal';
+import { tryWithChance } from '../utilities/tryWithChance';
 
 export class Turtle extends Animal {
   constructor(positionY, positionX, age = 0) {
@@ -7,7 +8,7 @@ export class Turtle extends Animal {
 
   async action(board) {
     // 75% chance to stay in place
-    if (Math.random() < 0.75) return;
+    if (tryWithChance(0.75)) return;
 
     await super.action(board);
   }

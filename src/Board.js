@@ -77,8 +77,8 @@ export class Board {
       { y: 1, x: 1 },
     ];
 
-    const neighbors = directions
-      .map((direction) => {
+    return (
+      directions.map((direction) => {
         const newY = positionY + direction.y;
         const newX = positionX + direction.x;
         if (this.isValidPosition(newY, newX) && !this.getOrganism(newY, newX)) {
@@ -86,9 +86,8 @@ export class Board {
         }
         return null;
       })
-      .filter((neighbor) => neighbor !== null);
-
-    return neighbors;
+      .filter((neighbor) => neighbor !== null)
+    )
   }
 
   async nextTurn() {
@@ -99,11 +98,12 @@ export class Board {
       return secondOrganism.age - firstOrganism.age;
     });
 
-    for (const organism of [...this.organisms]) {
+    for (let i = 0; i < this.organisms.length; i++) {
+      const organism = this.organisms[i];
       if (organism.alive) {
         await organism.action(this);
         organism.age++;
-        await wait(50);
+        await wait(100);
       }
     }
 

@@ -20,9 +20,9 @@ export class OrganismPopup {
   }
 
   initializeCancelHandler() {
-    this.cancelButton.onclick = () => {
+    this.cancelButton.addEventListener('click', () => {
       this.closePopup();
-    };
+    });
   }
 
   showPopup(positionY, positionX) {

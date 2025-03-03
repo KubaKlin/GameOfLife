@@ -1,5 +1,5 @@
 import { Organism } from '../Organism';
-import { getRandom } from '../utilities/getRandom';
+import { getRandomFromRange } from '../utilities/getRandomFromRange';
 
 export class Animal extends Organism {
   constructor(strength, initiative, positionY, positionX, age = 0) {
@@ -24,9 +24,9 @@ export class Animal extends Organism {
       return board.isValidPosition(newY, newX);
     });
 
-    if (availableDirections.length > 0) {
+    if (!availableDirections.length) {
       const randomDirection =
-        availableDirections[getRandom(availableDirections.length)];
+        availableDirections[getRandomFromRange(availableDirections.length)];
       const newY = this.positionY + randomDirection.positionY;
       const newX = this.positionX + randomDirection.positionX;
 
@@ -61,7 +61,7 @@ export class Animal extends Organism {
       this.positionX,
     );
     if (emptyNeighbors.length > 0) {
-      const position = emptyNeighbors[getRandom(emptyNeighbors.length)];
+      const position = emptyNeighbors[getRandomFromRange(emptyNeighbors.length)];
       const baby = new this.constructor(
         this.strength,
         this.initiative,
@@ -71,6 +71,4 @@ export class Animal extends Organism {
       board.addOrganism(baby);
     }
   }
-
-  // to be done - eat guarana
 }

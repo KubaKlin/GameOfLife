@@ -1,15 +1,30 @@
 import { Animal } from './Animal';
-import { getDirection } from '../utilities/getDirection';
 
 export class Player extends Animal {
   constructor(positionY, positionX, age = 0) {
     super(5, 4, positionY, positionX, age);
   }
 
+  getDirection(key) {
+    const directions = {
+      w: { directionX: 0, directionY: -1 },
+      x: { directionX: 0, directionY: 1 },
+      a: { directionX: -1, directionY: 0 },
+      d: { directionX: 1, directionY: 0 },
+      q: { directionX: -1, directionY: -1 },
+      e: { directionX: 1, directionY: -1 },
+      z: { directionX: -1, directionY: 1 },
+      c: { directionX: 1, directionY: 1 },
+      s: null, // Stay in place
+    };
+
+    return directions[key] || null;
+  }
+
   action(board) {
     return new Promise((resolve) => {
       const handleKeyPress = (event) => {
-        const direction = getDirection(event.key);
+        const direction = this.getDirection(event.key);
 
         if (direction === null) {
           document.removeEventListener('keydown', handleKeyPress);
