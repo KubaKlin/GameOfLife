@@ -10,6 +10,7 @@ import { SowThistle } from './plants/SowThistle';
 import { wait } from './utilities/wait';
 import { OrganismPopup } from './OrganismPopup';
 import { createTiles } from './utilities/createTiles';
+import { sortOrganismsByInitiative } from './utilities/sortOrganismsByInitiative';
 
 
 export class Board {
@@ -91,12 +92,7 @@ export class Board {
   }
 
   async nextTurn() {
-    this.organisms.sort((firstOrganism, secondOrganism) => {
-      if (secondOrganism.initiative !== firstOrganism.initiative) {
-        return secondOrganism.initiative - firstOrganism.initiative;
-      }
-      return secondOrganism.age - firstOrganism.age;
-    });
+    this.organisms.sort(sortOrganismsByInitiative);
 
     for (let i = 0; i < this.organisms.length; i++) {
       const organism = this.organisms[i];
