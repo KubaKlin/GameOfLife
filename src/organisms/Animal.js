@@ -24,7 +24,15 @@ export class Animal extends Organism {
     } else if (targetOrganism.constructor.name === this.constructor.name) {
       this.mate(board, targetOrganism);
     } else {
-      this.fight(board, targetOrganism);
+      if (this.shouldFight(board, targetOrganism)) {
+        this.fight(board, targetOrganism);
+      } else {
+        const escapeSpots = board.getEmptyNeighbors(this.positionY, this.positionX);
+        if (escapeSpots.length > 0) {
+          const escape = escapeSpots[getRandomFromRange(escapeSpots.length)];
+          board.moveOrganism(this, escape.positionY, escape.positionX);
+        }
+      }
     }
   }
   
@@ -41,6 +49,10 @@ export class Animal extends Organism {
       this.die();
       board.removeOrganism(this);
     }
+  }
+
+  shouldFight(board, opponent) {
+    return true; // By default, animals always fight
   }
 
   mate(board) {

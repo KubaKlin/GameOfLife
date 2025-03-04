@@ -1,5 +1,4 @@
 import { Animal } from '../organisms/Animal';
-import { getRandomFromRange } from '../utilities/getRandomFromRange';
 import { tryWithChance } from '../utilities/tryWithChance';
 
 export class Antelope extends Animal {
@@ -24,39 +23,8 @@ export class Antelope extends Animal {
     });
   }
 
-  async action(board) {
-    const availableDirections = this.getAvailableDirections(board);
-
-    if (!availableDirections.length) {
-      return;
-    }
-
-    const randomDirection =
-      availableDirections[getRandomFromRange(availableDirections.length)];
-    const newY = this.positionY + randomDirection.positionY;
-    const newX = this.positionX + randomDirection.positionX;
-
-    const targetOrganism = board.getOrganism(newY, newX);
-    if (!targetOrganism) {
-      board.moveOrganism(this, newY, newX);
-    } else if (targetOrganism.constructor.name === this.constructor.name) {
-      this.mate(board, targetOrganism);
-    } else {
-      // 50% chance to flee from fight
-      if (tryWithChance(0.5)) {
-        const escapeSpots = board.getEmptyNeighbors(
-          this.positionY,
-          this.positionX,
-        );
-        if (escapeSpots.length > 0) {
-          const escape = escapeSpots[getRandomFromRange(escapeSpots.length)];
-          board.moveOrganism(this, escape.positionY, escape.positionX);
-          return;
-        }
-      }
-      this.fight(board, targetOrganism);
-    }
-
+  shouldFight(board, opponent) {
+    return tryWithChance(0.5); // 50% chance to fight
   }
 
   getIcon() {
