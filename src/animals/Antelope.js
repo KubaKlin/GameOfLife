@@ -7,8 +7,7 @@ export class Antelope extends Animal {
     super(4, 4, positionY, positionX, age);
   }
 
-  async action(board) {
-    // Double range of movement
+  getAvailableDirections(board) {
     const directions = [];
     for (let directionY = -2; directionY <= 2; directionY++) {
       for (let directionX = -2; directionX <= 2; directionX++) {
@@ -18,39 +17,46 @@ export class Antelope extends Animal {
       }
     }
 
-    const availableDirections = directions.filter((direction) => {
+    return directions.filter((direction) => {
       const newY = this.positionY + direction.positionY;
       const newX = this.positionX + direction.positionX;
       return board.isValidPosition(newY, newX);
     });
+  }
+
+  async action(board) {
+    const availableDirections = this.getAvailableDirections(board);
 
     if (!availableDirections.length) {
-      const randomDirection =
-        availableDirections[getRandomFromRange(availableDirections.length)];
-      const newY = this.positionY + randomDirection.positionY;
-      const newX = this.positionX + randomDirection.positionX;
-
-      const targetOrganism = board.getOrganism(newY, newX);
-      if (!targetOrganism) {
-        board.moveOrganism(this, newY, newX);
-      } else if (targetOrganism.constructor.name === this.constructor.name) {
-        this.mate(board, targetOrganism);
-      } else {
-        // 50% chance to flee from fight
-        if (tryWithChance(0.5)) {
-          const escapeSpots = board.getEmptyNeighbors(
-            this.positionY,
-            this.positionX,
-          );
-          if (escapeSpots.length > 0) {
-            const escape = escapeSpots[getRandomFromRange(escapeSpots.length)];
-            board.moveOrganism(this, escape.positionY, escape.positionX);
-            return;
-          }
-        }
-        this.fight(board, targetOrganism);
-      }
+      return;
     }
+
+    const randomDirection =
+      availableDirections[getRandomFromRange(availableDirections.length)];
+    const newY = this.positionY + randomDirection.positionY;
+    const newX = this.positionX + randomDirection.positionX;
+
+    const targetOrganism = board.getOrganism(newY, newX);
+    if (!targetOrganism) {
+      board.moveOrganism(this, newY, newX);
+    } else if (targetOrganism.constructor.name === this.constructor.name) {
+      this.mate(board, targetOrganism);
+    } else {
+      // 50% chance to flee from fight
+      if (tryWithChance(0.5)) {
+        const escapeSpots = board.getEmptyNeighbors(
+          this.positionY,
+          this.positionX,
+        );
+        if (escapeSpots.length > 0) {
+          const escape = escapeSpots[getRandomFromRange(escapeSpots.length)];
+          board.moveOrganism(this, escape.positionY, escape.positionX);
+          return;
+        }
+      }
+      this.fight(board, targetOrganism);
+    }
+
   }
 
   getIcon() {

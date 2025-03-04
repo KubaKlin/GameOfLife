@@ -7,39 +7,27 @@ export class Animal extends Organism {
   }
 
   async action(board) {
-    const directions = [
-      { positionY: -1, positionX: -1 },
-      { positionY: 0, positionX: -1 },
-      { positionY: 1, positionX: -1 },
-      { positionY: -1, positionX: 0 },
-      { positionY: 1, positionX: 0 },
-      { positionY: -1, positionX: 1 },
-      { positionY: 0, positionX: 1 },
-      { positionY: 1, positionX: 1 },
-    ];
-
-    const availableDirections = directions.filter((direction) => {
-      const newY = this.positionY + direction.positionY;
-      const newX = this.positionX + direction.positionX;
-      return board.isValidPosition(newY, newX);
-    });
+    const availableDirections = this.getAvailableDirections(board);
 
     if (!availableDirections.length) {
-      const randomDirection =
-        availableDirections[getRandomFromRange(availableDirections.length)];
-      const newY = this.positionY + randomDirection.positionY;
-      const newX = this.positionX + randomDirection.positionX;
+      return;
+    }
+    
+    const randomDirection =
+      availableDirections[getRandomFromRange(availableDirections.length)];
+    const newY = this.positionY + randomDirection.positionY;
+    const newX = this.positionX + randomDirection.positionX;
 
-      const targetOrganism = board.getOrganism(newY, newX);
-      if (!targetOrganism) {
-        board.moveOrganism(this, newY, newX);
-      } else if (targetOrganism.constructor.name === this.constructor.name) {
-        this.mate(board, targetOrganism);
-      } else {
-        this.fight(board, targetOrganism);
-      }
+    const targetOrganism = board.getOrganism(newY, newX);
+    if (!targetOrganism) {
+      board.moveOrganism(this, newY, newX);
+    } else if (targetOrganism.constructor.name === this.constructor.name) {
+      this.mate(board, targetOrganism);
+    } else {
+      this.fight(board, targetOrganism);
     }
   }
+  
 
   fight(board, opponent) {
     if (this.strength >= opponent.strength) {
@@ -74,5 +62,24 @@ export class Animal extends Organism {
 
   onEaten(board, predator) {
     // Default behavior - do nothing when eaten
+  }
+
+  getAvailableDirections(board) {
+    const directions = [
+      { positionY: -1, positionX: -1 },
+      { positionY: 0, positionX: -1 },
+      { positionY: 1, positionX: -1 },
+      { positionY: -1, positionX: 0 },
+      { positionY: 1, positionX: 0 },
+      { positionY: -1, positionX: 1 },
+      { positionY: 0, positionX: 1 },
+      { positionY: 1, positionX: 1 },
+    ];
+
+    return directions.filter((direction) => {
+      const newY = this.positionY + direction.positionY;
+      const newX = this.positionX + direction.positionX;
+      return board.isValidPosition(newY, newX);
+    });
   }
 }
