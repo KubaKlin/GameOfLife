@@ -13,13 +13,79 @@
         <p>Click on empty tiles to add new organisms.</p>
         <p>
           Use 'qwe,asd,zxc' keys to move the player in 9 directions.
-          <br /><br />
         </p>
       </div>
     </div>
     <div id="organism-popup" class="popup">
       <h3>Choose organism to add:</h3>
-      <div id="organism-buttons"></div>
+      <p>The higher the initiative animal has, the earlier in turn this animal will make move</p>
+      <p>Strength determines the ability to be victorious in a fight with another animal</p>
+      <div id="organism-buttons" class="organism-buttons">
+        <button class="add-animal-button" data-organism="Wolf">
+          <span class="organism-icon">🐺</span>
+          <span>
+            <b>Wolf</b><br>
+            Strength: 9, <br>Initiative: 5
+          </span>
+        </button>
+        <button class="add-animal-button" data-organism="Sheep">
+          <span class="organism-icon">🐑</span>
+          <span>
+            <b>Sheep</b><br>
+            Strength: 3, <br>Initiative: 4
+          </span>
+        </button>
+        <button class="add-animal-button" data-organism="Fox">
+          <span class="organism-icon">🦊</span>
+          <span>
+            <b>Fox</b><br>
+            Strength: 4, <br>Initiative: 7
+          </span>
+        </button>
+        <button class="add-animal-button" data-organism="Antelope">
+          <span class="organism-icon">🦌</span>
+          <span>
+            <b>Antelope</b><br>
+            Strength: 4, <br>Initiative: 4<br>
+            (special ability: double range of movement)
+          </span>
+        </button>
+        <button class="add-animal-button" data-organism="Turtle">
+          <span class="organism-icon">🐢</span>
+          <span>
+            <b>Turtle</b><br>
+            Strength: 2,<br> Initiative: 1
+          </span>
+        </button>
+        <button class="add-animal-button" data-organism="Grass">
+          <span class="organism-icon">🌱</span>
+          <span>
+            <b>Grass</b><br>
+            Strength: 0, <br>Initiative: 0
+          </span>
+        </button>
+        <button class="add-animal-button" data-organism="Guarana">
+          <span class="organism-icon">🍇</span>
+          <span>
+            <b>Guarana</b><br>
+            Strength: 0,<br> Initiative: 0 <br>(special ability: boost fighter's strength)
+          </span>
+        </button>
+        <button class="add-animal-button" data-organism="PoisonBerry">
+          <span class="organism-icon">🍄</span>
+          <span>
+            <b>Poison Berry</b><br>
+            Strength: 0, <br>Initiative: 0 <br>(special ability: poison attackers)
+          </span>
+        </button>
+        <button class="add-animal-button" data-organism="SowThistle">
+          <span class="organism-icon">🌼</span>
+          <span>
+            <b>Sow Thistle</b><br>
+            Strength: 0, <br>Initiative: 0 <br>(special ability: spreads quickly)
+          </span>
+        </button>
+      </div>
       <button id="cancel-popup">Cancel</button>
     </div>
   </body>
