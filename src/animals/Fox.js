@@ -26,7 +26,7 @@ export class Fox extends Animal {
       }
 
       const organism = board.getOrganism(newX, newY);
-      const isWeaker = organism.strength <= this.strength;
+      const isWeaker = organism?.strength <= this.strength;
       return !organism || isWeaker;
     });
 
