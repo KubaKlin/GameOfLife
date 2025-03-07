@@ -12,7 +12,6 @@ import { OrganismPopup } from './OrganismPopup';
 import { createTiles } from './utilities/createTiles';
 import { sortOrganismsByInitiative } from './utilities/sortOrganismsByInitiative';
 
-
 export class Board {
   constructor(width = 20, height = 20) {
     this.width = width;
@@ -78,8 +77,8 @@ export class Board {
       { y: 1, x: 1 },
     ];
 
-    return (
-      directions.map((direction) => {
+    return directions
+      .map((direction) => {
         const newY = positionY + direction.y;
         const newX = positionX + direction.x;
         if (this.isValidPosition(newY, newX) && !this.getOrganism(newY, newX)) {
@@ -87,8 +86,7 @@ export class Board {
         }
         return null;
       })
-      .filter((neighbor) => neighbor !== null)
-    )
+      .filter((neighbor) => neighbor !== null);
   }
 
   async nextTurn() {

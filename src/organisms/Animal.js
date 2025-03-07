@@ -12,7 +12,7 @@ export class Animal extends Organism {
     if (!availableDirections.length) {
       return;
     }
-    
+
     const randomDirection =
       availableDirections[getRandomFromRange(availableDirections.length)];
     const newY = this.positionY + randomDirection.positionY;
@@ -27,7 +27,10 @@ export class Animal extends Organism {
       if (this.shouldFight(board, targetOrganism)) {
         this.fight(board, targetOrganism);
       } else {
-        const escapeSpots = board.getEmptyNeighbors(this.positionY, this.positionX);
+        const escapeSpots = board.getEmptyNeighbors(
+          this.positionY,
+          this.positionX,
+        );
         if (escapeSpots.length > 0) {
           const escape = escapeSpots[getRandomFromRange(escapeSpots.length)];
           board.moveOrganism(this, escape.positionY, escape.positionX);
@@ -35,7 +38,6 @@ export class Animal extends Organism {
       }
     }
   }
-  
 
   fight(board, opponent) {
     if (this.strength >= opponent.strength) {
@@ -59,7 +61,8 @@ export class Animal extends Organism {
       this.positionX,
     );
     if (emptyNeighbors.length > 0) {
-      const position = emptyNeighbors[getRandomFromRange(emptyNeighbors.length)];
+      const position =
+        emptyNeighbors[getRandomFromRange(emptyNeighbors.length)];
       const baby = new this.constructor(
         this.strength,
         this.initiative,

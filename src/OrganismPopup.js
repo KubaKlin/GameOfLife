@@ -10,7 +10,8 @@ export class OrganismPopup {
   }
 
   initializeButtonsHandler() {
-    const buttons = this.buttonsContainer.querySelectorAll('.add-animal-button');
+    const buttons =
+      this.buttonsContainer.querySelectorAll('.add-animal-button');
     buttons.forEach((button) => {
       const organism = button.getAttribute('data-organism');
       button.addEventListener('click', () => {
@@ -30,7 +31,8 @@ export class OrganismPopup {
 
   showPopup(positionY, positionX) {
     this.popup.classList.add('active');
-    const buttons = this.buttonsContainer.querySelectorAll('.add-animal-button');
+    const buttons =
+      this.buttonsContainer.querySelectorAll('.add-animal-button');
     buttons.forEach((button) => {
       button.setAttribute('data-position-y', positionY);
       button.setAttribute('data-position-x', positionX);

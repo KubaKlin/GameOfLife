@@ -26,7 +26,8 @@ export class Plant extends Organism {
       this.positionX,
     );
     if (emptyNeighbors.length > 0) {
-      const position = emptyNeighbors[getRandomFromRange(emptyNeighbors.length)];
+      const position =
+        emptyNeighbors[getRandomFromRange(emptyNeighbors.length)];
       const newPlant = new this.constructor(
         position.positionY,
         position.positionX,

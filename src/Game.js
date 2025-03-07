@@ -10,7 +10,7 @@ import { PoisonBerry } from './plants/PoisonBerry';
 import { SowThistle } from './plants/SowThistle';
 import { Player } from './organisms/Player';
 import { getRandomFromRange } from './utilities/getRandomFromRange';
-import {getRandomOrganismPosition} from "./utilities/getRandomOrganismPosition";
+import { getRandomOrganismPosition } from './utilities/getRandomOrganismPosition';
 
 export class Game {
   constructor() {
@@ -39,9 +39,13 @@ export class Game {
 
     // Add 20 random organisms
     for (let i = 0; i < 20; i++) {
-      const organismType = organismTypes[getRandomFromRange(organismTypes.length)];
-      const { x: organismPositionX, y: organismPositionY } = getRandomOrganismPosition(this.board);
-      this.board.addOrganism(new organismType(organismPositionX, organismPositionY));
+      const organismType =
+        organismTypes[getRandomFromRange(organismTypes.length)];
+      const { x: organismPositionX, y: organismPositionY } =
+        getRandomOrganismPosition(this.board);
+      this.board.addOrganism(
+        new organismType(organismPositionX, organismPositionY),
+      );
     }
   }
 

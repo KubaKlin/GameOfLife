@@ -34,7 +34,8 @@ export class Fox extends Animal {
       return;
     }
 
-    const randomDirection = safeDirections[getRandomFromRange(safeDirections.length)];
+    const randomDirection =
+      safeDirections[getRandomFromRange(safeDirections.length)];
     const newX = this.positionY + randomDirection.positionY;
     const newY = this.positionX + randomDirection.positionX;
 
