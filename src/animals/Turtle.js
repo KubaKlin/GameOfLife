@@ -8,7 +8,9 @@ export class Turtle extends Animal {
 
   async action(board) {
     // 75% chance to stay in place
-    if (tryWithChance(0.75)) return;
+    if (tryWithChance(0.75)) {
+      return;
+    }
 
     await super.action(board);
   }

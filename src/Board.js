@@ -103,7 +103,7 @@ export class Board {
       }
     }
 
-    this.organisms = this.organisms.filter((org) => org.alive);
+    this.organisms = this.organisms.filter((organism) => organism.alive);
   }
 
   createOrganism(organismType, positionY, positionX) {

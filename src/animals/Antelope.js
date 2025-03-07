@@ -10,7 +10,7 @@ export class Antelope extends Animal {
     const directions = [];
     for (let directionY = -2; directionY <= 2; directionY++) {
       for (let directionX = -2; directionX <= 2; directionX++) {
-        if (!(directionX === 0 && directionY === 0)) {
+        if (directionX !== 0 || directionY !== 0) {
           directions.push({ positionY: directionY, positionX: directionX });
         }
       }

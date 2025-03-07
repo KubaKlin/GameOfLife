@@ -39,9 +39,7 @@ export class Animal extends Organism {
 
   fight(board, opponent) {
     if (this.strength >= opponent.strength) {
-      if (opponent.onEaten) {
-        opponent.onEaten(this, board);
-      }
+      opponent.onEaten?.(this, board);
       opponent.die();
       board.removeOrganism(opponent);
       board.moveOrganism(this, opponent.positionY, opponent.positionX);

@@ -21,10 +21,13 @@ export class Fox extends Animal {
     const safeDirections = directions.filter((direction) => {
       const newX = this.positionY + direction.positionY;
       const newY = this.positionX + direction.positionX;
-      if (!board.isValidPosition(newX, newY)) return false;
+      if (!board.isValidPosition(newX, newY)) {
+        return false;
+      }
 
       const organism = board.getOrganism(newX, newY);
-      return !organism || organism.strength <= this.strength;
+      const isWeaker = organism.strength <= this.strength;
+      return !organism || isWeaker;
     });
 
     if (!safeDirections.length) {
