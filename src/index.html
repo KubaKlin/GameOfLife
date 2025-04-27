@@ -2,8 +2,112 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game of Life</title>
   </head>
   <body>
+    <div id="game-container" class="game-container">
+      <div id="game-board" class="game-board"></div>
+      <div class="description">
+        <h2>Game of life</h2>
+        <p>Click on empty tiles to add new organisms.</p>
+        <p>Use 'qwe,asd,zxc' keys to move the player in 9 directions.</p>
+      </div>
+    </div>
+    <div id="organism-popup" class="popup">
+      <h3>Choose organism to add:</h3>
+      <p>
+        The higher the initiative animal has, the earlier in turn this animal
+        will make move
+      </p>
+      <p>
+        Strength determines the ability to be victorious in a fight with another
+        animal
+      </p>
+      <div id="organism-buttons" class="organism-buttons">
+        <button class="add-animal-button" data-organism="Wolf">
+          <span class="organism-icon">🐺</span>
+          <span>
+            <b>Wolf</b>
+            <p>Strength: 9</p>
+            <p>Initiative: 5</p>
+          </span>
+        </button>
+        <button class="add-animal-button" data-organism="Sheep">
+          <span class="organism-icon">🐑</span>
+          <span>
+            <b>Sheep</b>
+            <p>Strength: 3</p>
+            <p>Initiative: 4</p>
+          </span>
+        </button>
+        <button class="add-animal-button" data-organism="Fox">
+          <span class="organism-icon">🦊</span>
+          <span>
+            <b>Fox</b>
+            <p>Strength: 4</p>
+            <p>Initiative: 7</p>
+            <p>
+              Never tries to move to a field that is occupied by a stronger
+              organism
+            </p>
+          </span>
+        </button>
+        <button class="add-animal-button" data-organism="Antelope">
+          <span class="organism-icon">🦌</span>
+          <span>
+            <b>Antelope</b>
+            <p>Strength: 4</p>
+            <p>Initiative: 4</p>
+            <p>double range of movement and 50% chance of fleeing from fight</p>
+          </span>
+        </button>
+        <button class="add-animal-button" data-organism="Turtle">
+          <span class="organism-icon">🐢</span>
+          <span>
+            <b>Turtle</b>
+            <p>Strength: 2</p>
+            <p>Initiative: 1</p>
+            <p>Won't change it's field in 75% of times.</p>
+          </span>
+        </button>
+        <button class="add-animal-button" data-organism="Grass">
+          <span class="organism-icon">🌱</span>
+          <span>
+            <b>Grass</b>
+            <p>Strength: 0</p>
+            <p>Initiative: 0</p>
+          </span>
+        </button>
+        <button class="add-animal-button" data-organism="Guarana">
+          <span class="organism-icon">🍇</span>
+          <span>
+            <b>Guarana</b>
+            <p>Strength: 0</p>
+            <p>Initiative: 0</p>
+            <p>(special ability: boost fighter's strength)</p>
+          </span>
+        </button>
+        <button class="add-animal-button" data-organism="PoisonBerry">
+          <span class="organism-icon">🍄</span>
+          <span>
+            <b>Poison Berry</b>
+            <p>Strength: 0</p>
+            <p>Initiative: 0</p>
+            <p>(special ability: poison attackers)</p>
+          </span>
+        </button>
+        <button class="add-animal-button" data-organism="SowThistle">
+          <span class="organism-icon">🌼</span>
+          <span>
+            <b>Sow Thistle</b>
+            <p>Strength: 0</p>
+            <p>Initiative: 0</p>
+            <p>(special ability: spreads quickly)</p>
+          </span>
+        </button>
+      </div>
+      <button id="cancel-popup">Cancel</button>
+    </div>
   </body>
 </html>

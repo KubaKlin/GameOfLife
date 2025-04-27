@@ -1,0 +1,98 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.game-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.description {
+  max-width: 300px;
+  padding: 20px;
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(20, 30px);
+  grid-template-rows: repeat(20, 30px);
+  gap: 1px;
+  padding: 10px;
+  border-radius: 5px;
+  justify-content: center;
+  background-color: #e6e6e6;
+  margin-right: 15px;
+}
+
+.tile {
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.tile:hover {
+  background-color: #eee;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 40%;
+  transform: translate(-35%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: none;
+}
+
+.popup.active {
+  display: block;
+}
+
+.popup button {
+  margin: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.controls {
+  text-align: center;
+}
+
+.organism-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: space-between;
+
+  .add-animal-button {
+    display: flex;
+    flex-basis: 32%;
+    margin: 0 0 15px;
+    padding: 15px 10px;
+  }
+
+  .organism-icon {
+    font-size: 30px;
+    margin-right: 10px;
+  }
+
+  span {
+    text-align: left;
+    padding-left: 10px;
+
+    p {
+      margin-top: 0;
+      margin-bottom: 5px;
+    }
+  }
+}
